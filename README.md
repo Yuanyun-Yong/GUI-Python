@@ -224,3 +224,79 @@ message_label.pack()
 
 # Run the main window loop
 root.mainloop()
+
+"""
+Putting an image in a label
+We can also put images in labels! This is a handy way of getting any images you need into a GUI app.
+To add an image, we do it in a similar way to how we used a variable. First we have to create a PhotoImage() variable with the name or path to the image stored in it:
+happy_image =  PhotoImage(file="/images/python/happy.png")
+Then, we set an image parameter on the label to the variable the image is stored in, and pack it into the GUI:
+my_label = Label(root, image=happy_image)
+my_label.pack()
+Under the relevant comment create a PhotoImage() variable called neutral_image storing the image /images/python/neutral.png.
+Under the next comment, create a new label called image_label and set the image to our neutral image.
+Pack the label into the GUI.
+"""
+from tkinter import *
+
+root = Tk()
+root.title("Goal Tracker")
+
+# Create and set the message text variable
+message_text = StringVar()
+message_text.set("Welcome! You can deposit or withdraw money and see your progress towards your goals.")
+
+# Create the message label and add it to the window using pack()
+message_label = Label(root, textvariable=message_text, wraplength=250)
+message_label.pack()
+
+#Create a PhotoImage()
+neutral_image = PhotoImage(file = "/images/python/neutral.png")
+
+#Create a new Label using the PhotoImage and pack it into the GUI
+image_label = Label(root, image = neutral_image)
+image_label.pack()
+
+# Run the main window loop
+root.mainloop()
+
+"""
+Adding a multiline label using \n
+We now have a welcome message label and an image label, but this part of the GUI will need one more label to show us our account balances. So let's get one more bit of practice adding a label with a textvariable.
+This time, instead of using wraplength we're going to split the label onto 2 lines using \n, which is the newline character.
+Under the relevant comment, create a StringVar() called account_details.
+Set account_details to: Savings: $500 - 25% of $2000 goal \nTotal balance: $500
+Create a label called details_label and set the textvariable to account_details.
+Pack the details label into the GUI.
+"""
+from tkinter import *
+
+root = Tk()
+root.title("Goal Tracker")
+
+# Create and set the message text variable
+message_text = StringVar()
+message_text.set("Welcome! You can deposit or withdraw money and see your progress towards your goals.")
+
+# Create the message label and add it to the window using pack()
+message_label = Label(root, textvariable=message_text, wraplength=250)
+message_label.pack()
+
+#Create a PhotoImage()
+neutral_image = PhotoImage(file="/images/python/neutral.png")
+
+#Create a new Label using the PhotoImage and pack it into the GUI
+image_label = Label(root, image=neutral_image)
+image_label.pack()
+
+
+# Create and set the account details variable
+account_details = StringVar()
+account_details.set("Savings:$500 - 25% of $2000 goal \nTotal balance:$500")
+
+# Create the details label and pack it into the GUI
+details_label = Label(root, textvariable=account_details)
+details_label.pack()
+
+# Run the mainloop
+root.mainloop()
