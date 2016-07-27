@@ -366,3 +366,455 @@ label2.pack()
 
 # Run the main window loop
 root.mainloop()
+
+"""
+Customizing an Entry widget
+We have seen that we can change the width of an Entry widget. Like a label, there are many other things that can be customized too. Again, just because you can change the colors of things, it doesn't mean you should, but here are a couple of examples:
+colorful_entry = Entry(root, bg="blue", fg="yellow", selectbackground="limegreen", selectforeground="black")
+bg and fg set the background color of the entry box and the color of the text in the entry box respectively.
+selectbackground sets the highlight color of selected text in the entry and selectforeground sets the color of text itself when it is selected.
+Set the background color of the words_entry widget to a color of your choice e.g. yellow.
+Set the foreground color of the words_entry widget to another color of your choice.
+Set the background color for selected text to another color of your choice.
+Set the text color for selected text to another color of your choice.
+"""
+
+from tkinter import *
+
+# Create a window
+root = Tk()
+root.title("My GUI App")
+
+# Create a label and add it to the window using pack()
+label1 = Label(root, text="My GUI App!")
+label1.pack()
+
+#Create a StringVar() to store text
+words = StringVar()
+
+# Create a text entry field
+words_entry = Entry(root, textvariable=words, bg = "blue", fg = "yellow", selectbackground = "purple", selectforeground = "red")
+words_entry.pack()
+
+# Create a second label with longer text and add it to the window using pack()
+label2 = Label(root, textvariable=words, wraplength=150)
+label2.pack()
+
+# Run the main window loop
+root.mainloop()
+
+"""
+Adding an amount input to our goal tracking app
+Let's return to our goal tracking app. We've got an area set up where our helpful goal tracking character welcomes us and tells us how much money we currently have.
+We want our users to be able to deposit and withdraw money, so we're going to need an Entry widget where they can type in the amount. We're also going to need to label it so they know what to type into it.
+Let's start with the label.
+Under the relevant comment, create a Label called amount_label with root as parent and the text Amount: This text won't change so we can hard-code it in rather than using a variable.
+Pack the label into the GUI.
+"""
+from tkinter import *
+
+root = Tk()
+root.title("Goal Tracker")
+
+# Create and set the message text variable
+message_text = StringVar()
+message_text.set("Welcome! You can deposit or withdraw money and see your progress towards your goals.")
+
+# Create and pack the message label
+message_label = Label(root, textvariable=message_text, wraplength=250)
+message_label.pack()
+
+# Create the PhotoImage and label to hold it
+neutral_image = PhotoImage(file="/images/python/neutral.png")
+image_label = Label(root, image=neutral_image)
+image_label.pack()
+
+# Create and set the account details variable
+account_details = StringVar()
+account_details.set("Savings: $500 - 25% of $2000 goal \nTotal balance: $500")
+
+# Create the details label and pack it into the GUI
+details_label = Label(root, textvariable=account_details)
+details_label.pack()
+
+# Create a label for the amount field and pack it into the GUI
+amount_label = Label(root, text = "Amount: ")
+amount_label.pack()
+
+# Run the mainloop
+root.mainloop()
+
+"""
+Adding the amount entry field
+Ok, now we need to create a variable so that we can store the value the user types in, and create the Entry field itself.
+Users might want to enter an amount like $65.50 so we'll need to use a DoubleVar() which will let us store float values. When we do this, it puts the value 0.0 into the field. It will be annoying if the user has to delete this before they start typing, so we're going to set() the variable to an empty string "" to start off with so that the field will be empty.
+Create a DoubleVar() called amount under the relevant comment.
+Set amount to an empty string by putting "" inside the brackets of the set() function.
+Under the next comment, create an Entry called amount_entry with root as parent and amount as the textvariable.
+Pack amount_entry into the GUI.
+"""
+
+from tkinter import *
+
+root = Tk()
+root.title("Goal Tracker")
+
+# Create and set the message text variable
+message_text = StringVar()
+message_text.set("Welcome! You can deposit or withdraw money and see your progress towards your goals.")
+
+# Create and pack the message label
+message_label = Label(root, textvariable=message_text, wraplength=250)
+message_label.pack()
+
+# Create the PhotoImage and label to hold it
+neutral_image = PhotoImage(file="/images/python/neutral.png")
+image_label = Label(root, image=neutral_image)
+image_label.pack()
+
+# Create and set the account details variable
+account_details = StringVar()
+account_details.set("Savings: $500 - 25% of $2000 goal \nTotal balance: $500")
+
+# Create the details label and pack it into the GUI
+details_label = Label(root, textvariable=account_details)
+details_label.pack()
+
+# Create a label for the amount field and pack it into the GUI
+amount_label = ttk.Label(root, text="Amount:")
+amount_label.pack()
+
+# Create a variable to store the amount
+amount = DoubleVar()
+amount.set("")
+
+# Create an entry to type in amount
+amount_entry = Entry(root, textvariable = amount)
+amount_entry.pack()
+
+# Run the mainloop
+root.mainloop()
+
+"""
+Creating a Button widget
+Now that we’ve learned how to put labels, images, and text entry fields into a window, we need to learn to create buttons. Later, we will learn how to make things happen when a user clicks on one of our buttons but for right now, here’s the code to create a button that says, “Click Me!”:
+my_button = Button(root, text="Click Me!")
+We simply give it a name, use the Button widget class and put some text on it.
+Let's add a Submit button to our goal tracking app so that we can do something with the amount the user enters.
+Underneath the comment, create a Button called submit_button with root as the parent.
+Set the text for the button to Submit.
+Pack the button into the GUI.
+"""
+
+from tkinter import *
+
+root = Tk()
+root.title("Goal Tracker")
+
+# Create and set the message text variable
+message_text = StringVar()
+message_text.set("Welcome! You can deposit or withdraw money and see your progress towards your goals.")
+
+# Create and pack the message label
+message_label = Label(root, textvariable=message_text, wraplength=250)
+message_label.pack()
+
+# Create the PhotoImage and label to hold it
+neutral_image = PhotoImage(file="/images/python/neutral.png")
+image_label = Label(root, image=neutral_image)
+image_label.pack()
+
+# Create and set the account details variable
+account_details = StringVar()
+account_details.set("Savings: $0 \nTotal balance: $0")
+
+# Create the details label and pack it into the GUI
+details_label = Label(root, textvariable=account_details)
+details_label.pack()
+
+# Create a label for the amount field and pack it into the GUI
+amount_label = Label(root, text="Amount:")
+amount_label.pack()
+
+# Create a variable to store the amount
+amount = DoubleVar()
+amount.set("") 
+
+# Create an entry to type in amount
+amount_entry = Entry(root, textvariable=amount)
+amount_entry.pack()
+
+# Create a submit button
+submit_button = Button(root, text = "Submit")
+submit_button.pack()
+
+# Run the mainloop
+root.mainloop()
+
+"""
+Customizing a Button widget
+Let's have a look at some of the things we can customize on a Button widget. We have bg and fg as usual, and here are a few others:
+my_button = Button(root, text="Click Me!", bg="red", fg="yellow", width=30, height=3, bd=1, state="normal", activebackground="green")
+width is measured in characters.
+height is measured in rows or lines of text.
+bd sets the border width for the button in pixels, the default is 2px.
+state lets you disable a button using state="disabled", the default is "normal".
+activebackground and activeforeground set the colors for the button and text when the user is pressing down on the button.
+Set the width of the submit button to 16.
+Set the background color to red.
+Set the text color to yellow.
+Set the active background color to lawngreen.
+"""
+
+from tkinter import *
+
+root = Tk()
+root.title("Goal Tracker")
+
+# Create and set the message text variable
+message_text = StringVar()
+message_text.set("Welcome! You can deposit or withdraw money and see your progress towards your goals.")
+
+# Create and pack the message label
+message_label = Label(root, textvariable=message_text, wraplength=250)
+message_label.pack()
+
+# Create the PhotoImage and label to hold it
+neutral_image = PhotoImage(file="/images/python/neutral.png")
+image_label = Label(root, image=neutral_image)
+image_label.pack()
+
+# Create and set the account details variable
+account_details = StringVar()
+account_details.set("Savings: $0 \nTotal balance: $0")
+
+# Create the details label and pack it into the GUI
+details_label = Label(root, textvariable=account_details)
+details_label.pack()
+
+# Create a label for the amount field and pack it into the GUI
+amount_label = Label(root, text="Amount:")
+amount_label.pack()
+
+# Create a variable to store the amount
+amount = DoubleVar()
+amount.set("") 
+
+# Create an entry to type in amount
+amount_entry = Entry(root, textvariable=amount)
+amount_entry.pack()
+
+# Create a submit button
+submit_button = Button(root, text="Submit", width = 16, bg = "red", fg = "yellow", activebackground = "lawngreen")
+submit_button.pack()
+
+# Run the mainloop
+root.mainloop()
+
+"""
+Themed tkinter widgets or ttk
+If you put tkinter code into a Python editor on your computer such as IDLE or PyCharm and run it, you might be disappointed with how plain the GUI looks. This might make you want to brighten it up with some colors and things like we did with our submit button. However, as we've mentioned, users generally want a GUI to look nice, but also consistent with the operating system they are using.
+Luckily, tkinter has a collection of themed widgets, called ttk that can be imported if you want a simple way to make your GUI look nicer. These widgets are designed to look more native, so if you're on Windows they will be styled like the normal Windows programs, if you're on Mac, they'll be styled to look like Mac programs:
+https://www.codeavengers.com/images/python/gui/all-os.png
+To use ttk widgets, you just import them and then use ttk. in front of your widgets:
+from tkinter import ttk
+my_button = ttk.Button(root, text="Hello")
+Note that you can't set parameters like bg and fg on these. There are a few other differences between tk and ttk widgets.
+We've prefixed the Labels for you–they don't really look much different as ttk widgets, but it's good to be consistent.
+Import ttk from tkinter of our goal tracking app code.
+Put the ttk. prefix in front of the amount_entry widget.
+Then put the ttk. prefix in front of the submit_button widget.
+"""
+
+from tkinter import *
+from tkinter import ttk
+
+root = Tk()
+root.title("Goal Tracker")
+
+# Create and set the message text variable
+message_text = StringVar()
+message_text.set("Welcome! You can deposit or withdraw money and see your progress towards your goals.")
+
+# Create and pack the message label
+message_label = ttk.Label(root, textvariable=message_text, wraplength=250)
+message_label.pack()
+
+# Create the PhotoImage and label to hold it
+neutral_image = PhotoImage(file="/images/python/neutral.png")
+image_label = ttk.Label(root, image=neutral_image)
+image_label.pack()
+
+# Create and set the account details variable
+account_details = StringVar()
+account_details.set("Savings: $0 \nTotal balance: $0")
+
+# Create the details label and pack it into the GUI
+details_label = ttk.Label(root, textvariable=account_details)
+details_label.pack()
+
+# Create a label for the amount field and pack it into the GUI
+amount_label = ttk.Label(root, text="Amount:")
+amount_label.pack()
+
+# Create a variable to store the amount
+amount = DoubleVar()
+amount.set("")
+
+# Create an entry to type in amount
+amount_entry = ttk.Entry(root, textvariable=amount)
+amount_entry.pack()
+
+# Create a submit button
+submit_button = ttk.Button(root, text="Submit")
+submit_button.pack()
+
+# Run the mainloop
+root.mainloop()
+
+"""
+Making a button call a function
+At the start of this lesson we talked about making something happen when a user clicks a button. This is commonly called handling an event in programming.
+In a Button widget, we can set a command argument that will call a function when the button is clicked:
+def say_hello():
+    label_text.set("Hello!")
+    
+label_text = StringVar()
+my_label = ttk.Label(root, textvariable=label_text)
+my_button = ttk.Button(root, text="Click Me!", command=say_hello)
+In this code, we have created a function called say_hello() that changes the label text to Hello. When the button is clicked, this function is called.
+If you need to get the value of a variable, for example from an Entry, you can use the .get() function e.g. a_value = a_variable.get()
+Let's add a function and a call to it in our goal tracking app. We want the user to enter an amount, click "submit" and have that amount added to their savings account balance.
+First, we'll need a variable to store the account balance. On line 5 create a regular python variable called savings_balance and set it to 0.
+Next, create a function called update_balance that takes no parameters.
+Inside the function, add the line global savings_balance - this lets us access the savings balance variable inside the function, without having to pass it in.
+Then use the .get() function to get the value in the amount entry, and store it as deposit_amount.
+Add the deposit amount to the current savings balance, and store in  savings_balance.
+Add a command to the submit_button to run the update_balance() function when clicked.
+"""
+
+from tkinter import *
+from tkinter import ttk
+
+# Create a variable to store the account balance
+savings_balance = 0
+
+
+# Create a function that will update the balance.
+def update_balance():
+  global savings_balance
+  deposit_amount = amount.get()
+  savings_balance = savings_balance + deposit_amount
+
+# GUI Code
+root = Tk()
+root.title("Goal Tracker")
+
+# Create and set the message text variable
+message_text = StringVar()
+message_text.set("Welcome! You can deposit or withdraw money and see your progress towards your goals.")
+
+# Create and pack the message label
+message_label = ttk.Label(root, textvariable=message_text, wraplength=250)
+message_label.pack()
+
+# Create the PhotoImage and label to hold it
+neutral_image = PhotoImage(file="/images/python/neutral.png")
+image_label = ttk.Label(root, image=neutral_image)
+image_label.pack()
+
+# Create and set the account details variable
+account_details = StringVar()
+account_details.set("Savings: $0 \nTotal balance: $0")
+
+# Create the details label and pack it into the GUI
+details_label = ttk.Label(root, textvariable=account_details)
+details_label.pack()
+
+# Create a label for the amount field and pack it into the GUI
+amount_label = ttk.Label(root, text="Amount:")
+amount_label.pack()
+
+# Create a variable to store the amount
+amount = DoubleVar()
+amount.set("")
+
+# Create an entry to type in amount
+amount_entry = ttk.Entry(root, textvariable=amount)
+amount_entry.pack()
+
+# Create a submit button
+submit_button = ttk.Button(root, text="Submit", command = update_balance)
+submit_button.pack()
+
+# Run the mainloop
+root.mainloop()
+
+"""
+Updating the GUI from the function
+Lastly, we need to make it so that our label gets updated with the new account balance. This is just a simplified version of what our finished app will do, but it is enough to learn how buttons work for now.
+Since our details_label has our savings balance and total balance, we'll need to set a variable for that. This part will make more sense once we add the ability to have more than one account/goal, but for now let's future-proof it.
+Inside the update_balance() function, create a variable called total_balance and set it equal to savings_balance since we only have one account for now.
+Use the .set() function to set the account_details variable to the following string: Savings: ${}\nTotal Balance: ${}.
+Use .format() to insert the values savings_balance and total_balance into the string.
+Set the amount variable back to an empty string "" so that the field clears when the user hits submit.
+Format the output so that the balances in the label display to 2dp.
+"""
+
+from tkinter import *
+from tkinter import ttk
+
+# Create a variable to store the account balance
+savings_balance = 0
+
+# Create a function that will update the balance.
+def update_balance():
+    global savings_balance
+    deposit_amount = amount.get()
+    savings_balance += deposit_amount
+    total_balance = savings_balance
+    account_details.set("Savings: ${}\nTotal Balance: ${}".format(savings_balance, total_balance))
+
+
+root = Tk()
+root.title("Goal Tracker")
+
+# Create and set the message text variable
+message_text = StringVar()
+message_text.set("Welcome! You can deposit or withdraw money and see your progress towards your goals.")
+
+# Create and pack the message label
+message_label = ttk.Label(root, textvariable=message_text, wraplength=250)
+message_label.pack()
+
+# Create the PhotoImage and label to hold it
+neutral_image = PhotoImage(file="/images/python/neutral.png")
+image_label = ttk.Label(root, image=neutral_image)
+image_label.pack()
+
+# Create and set the account details variable
+account_details = StringVar()
+account_details.set("Savings: $0 \nTotal balance: $0")
+
+# Create the details label and pack it into the GUI
+details_label = ttk.Label(root, textvariable=account_details)
+details_label.pack()
+
+# Create a label for the amount field and pack it into the GUI
+amount_label = ttk.Label(root, text="Amount:")
+amount_label.pack()
+
+# Create a variable to store the amount
+amount = DoubleVar()
+amount.set("")
+
+# Create an entry to type in amount
+amount_entry = ttk.Entry(root, textvariable=amount)
+amount_entry.pack()
+
+# Create a submit button
+submit_button = ttk.Button(root, text="Submit", command=update_balance)
+submit_button.pack()
+
+# Run the mainloop
+root.mainloop()
