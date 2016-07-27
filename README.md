@@ -300,3 +300,69 @@ details_label.pack()
 
 # Run the mainloop
 root.mainloop()
+
+"""
+Getting to know the Entry widget.
+A widget that is commonly needed in a GUI app is an Entry widget. This is a basic text input field that the user can type into. Let's see how it works:
+name_entry = Entry(root, textvariable=name, width=30)
+Usually, we would have it linked to a variable because we most likely want to do something with the value. The width for an entry is measured in characters by default.
+Under the relevant comment, create a StringVar() called words, we don't need to set a value this time.
+Under the next comment, create an Entry called words_entry with root as parent, and set the textvariable to words.
+Pack the entry into the GUI.
+"""
+
+from tkinter import *
+
+# Create a window
+root = Tk()
+root.title("My GUI App")
+
+# Create a label and add it to the window using pack()
+label1 = Label(root, text="My GUI App!")
+label1.pack()
+
+#Create a StringVar() to store text
+words = StringVar()
+
+# Create a text entry field
+words_entry = Entry(root, textvariable=words)
+words_entry.pack()
+
+# Create a second label with longer text and add it to the window using pack()
+label2 = Label(root, text="Another label", wraplength=150)
+label2.pack()
+
+# Run the main window loop
+root.mainloop()
+
+"""
+Linking an Entry with a Label using a textvariable
+Whenever the user types something into the Entry field, that value will be stored in the textvariable we have assigned to it.
+We can link another widget to the same textvariable to see this in action. This is an easy way to use the value, and we will look at other ways later on.
+Replace the ??? to set the textvariable for label2 to words as well.
+You may like to try changing the wraplength on label2 to some different numbers to see what happens to the label and the window when you enter more text in the entry field. What happens if you remove wraplength altogether?
+"""
+
+from tkinter import *
+
+# Create a window
+root = Tk()
+root.title("My GUI App")
+
+# Create a label and add it to the window using pack()
+label1 = Label(root, text="My GUI App!")
+label1.pack()
+
+#Create a StringVar() to store text
+words = StringVar()
+
+# Create a text entry field
+words_entry = Entry(root, textvariable=words)
+words_entry.pack()
+
+# Create a second label with longer text and add it to the window using pack()
+label2 = Label(root, textvariable = words, wraplength=150)
+label2.pack()
+
+# Run the main window loop
+root.mainloop()
