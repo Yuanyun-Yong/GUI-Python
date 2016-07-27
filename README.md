@@ -149,3 +149,78 @@ label2.pack()
 
 # Run the main window loop
 root.mainloop()
+
+"""
+More on creating a label
+In the first lesson we had a look at how to create a window and add a label. In this lesson we are going to take a closer look at labels!
+When we create a label, there are a few other parameters we can set in addition to the parent and the text. Let's look at some:
+my_label = Label(root, text="Here is a label with a long sentence in it", wraplength=100, justify="center", fg="red", bg="yellow")
+wraplength says how wide each line should be. We can use this to make a longer label wrap onto multiple lines. By default this is measured in pixels.
+justify lets you set the text to be left, right or center aligned within the label. By default, all text in a label is centered.
+fg sets the foreground color or text color for the writing in the label.
+bg sets the background color for the space that the label takes up behind the text.
+Set the background color for label1 to blue.
+Set the foreground color for label1 to yellow.
+Set the wraplength for label2 to 100.
+Left align the text in label2.
+"""
+
+from tkinter import *
+
+# Create a window
+root = Tk()
+root.title("My GUI App")
+
+# Create a label and add it to the window using pack()
+label1 = Label(root, text="My GUI App!", bg = "blue", fg = "yellow")
+label1.pack()
+
+# Create a second label with longer text and add it to the window using pack()
+label2 = Label(root, text="Whatever you want but make it a longer sentence!", wraplength = 100, justify = "left")
+label2.pack()
+
+# Run the main window loop
+root.mainloop()
+
+"""
+Using a StringVar() to set the text for a label
+At the moment, we are hard-coding the text for our labels. This is fine when we know that our label text will never change.
+Sometimes, however, we might want the label text to change when the user does something. To do this, we can use a tkinter variable. Tkinter handles variables a bit differently from regular Python code. You have to decide the datatype first, then create the right variable and set the value:
+name = StringVar()
+name.set("Billy")
+my_label = Label(root, textvariable=name)
+Then, instead of setting a text parameter, we set a textvariable parameter in our label.
+Whatever value is stored in the name variable will be displayed in the label. If the name variable changes at all, the label will automatically be updated which is pretty cool!
+In this course we are going to build a banking type app that lets the user deposit and withdraw money from accounts, and track progress towards savings goals such as a holiday, or new video game console. We've put an empty window in the code for you to start with.
+Change the title of the window to Goal Tracker.
+Under the relevant comment, create a StringVar() called message_text.
+On the next line, set() the variable message_text to: Welcome! You can deposit or withdraw money and see your progress towards your goals.
+Under the next relevant comment, create a label called message_label with root as the parent, message_text as the textvariable and a wraplength of 250.
+Pack the message label into the GUI.
+"""
+
+"""
+Goal Tracking App
+
+The app we build in this course isn't designed to be an actual banking program, as most people would just use their online banking for that, but rather an app for tracking progress toward some goals.
+
+Although in the course we use accounts and depositing and withdrawing money, the code could easily be adapted for other apps. For example, it could be turned into an app for parents to track their children's saving progress for a new toy or bike with money from their allowance and chores.
+
+It could also be modified to track time spent doing activities like practice or exercise, calories consumed or credits earned from courses. So, once you've completed the course, get creative with the code and let us know what you come up with!
+"""
+from tkinter import *
+
+# Create a window
+root = Tk()
+root.title("Goal Tracker")
+
+# Create and set the message text variable
+message_text = StringVar()
+message_text.set("Welcome! You can deposit or withdraw money and see your progress towards your goals.")
+
+# Create the message label and add it to the window using pack()
+message_label = Label(root, textvariable = message_text, wraplength = 250)
+message_label.pack()
+
+# Run the main window loop
+root.mainloop()
