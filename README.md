@@ -818,3 +818,245 @@ submit_button.pack()
 
 # Run the mainloop
 root.mainloop()
+
+"""
+Introduction to the .grid() layout system
+Our GUI for our goal tracking app is starting to get a bit more complex now that we have added so many widgets. It would be nice if we could have some more control over how they are placed in the window.
+We have been using .pack() to place the widgets in the window, but tkinter also has another geometry manager called .grid().
+With .grid() you set which row and column you want the widget to appear in, and it goes there:
+my_button = ttk.Button(root, test="Click Me!")
+my_button.grid(row=0, column=0)
+(0, 0) is the top left corner of the window. Nice and easy, as long as you plan your grid well and use it for all of your widgets.
+In the editor is a window with 9 buttons. Each button is labeled with the row and column it should be in, but .pack() has been used.
+Change .pack() to .grid() and put each button in the correct row and column.
+"""
+from tkinter import *
+from tkinter import ttk
+
+root = Tk()
+root.title("Grid Test")
+
+button1 = ttk.Button(root, text="Row 0, Col 0")
+button1.grid(row=0, column=0)
+
+button2 = ttk.Button(root, text="Row 1, Col 2")
+button2.grid(row=1, column=2)
+
+button3 = ttk.Button(root, text="Row 2, Col 2")
+button3.grid(row=2, column=2)
+
+button4 = ttk.Button(root, text="Row 1, Col 0")
+button4.grid(row=1, column=0)
+
+button5 = ttk.Button(root, text="Row 0, Col 1")
+button5.grid(row=0, column=1)
+
+button6 = ttk.Button(root, text="Row 0, Col 2")
+button6.grid(row=0, column=2)
+
+button7 = ttk.Button(root, text="Row 1, Col 1")
+button7.grid(row=1, column=1)
+
+button8 = ttk.Button(root, text="Row 2, Col 1")
+button8.grid(row=2, column=1)
+
+button9 = ttk.Button(root, text="Row 2, Col 0")
+button9.grid(row=2, column=0)
+
+root.mainloop()
+
+"""
+Using rowspan and columnspan
+Sometimes when we're using a grid layout system, we might want a widget to span over more than one row or column like so:
+https://www.codeavengers.com/images/python/colspan.png
+To do this, we can specify a columnspan or rowspan inside the .grid() function. A columnspan of 3 means that widget should take up 3 columns.
+Another parameter we can set for widgets using the grid function is sticky. This makes the widget stick to specified edges of its container. To set sticky you pass in any combination of the letters N, S, W, E (compass directions) as either a string: sticky="NS" or a tuple: sticky=(N, NW)
+Using sticky="WE" will make a widget the full width it can be, and sticky="NS" will make it full height.  "NSWE" will make it fill all the space available to it.
+We've modified the code slightly so that you can explore columnspan and rowspan.
+Edit the code to make button4 span 3 columns.
+Make button5 span 2 rows.
+Make button8 span 2 columns.
+button4 should fill the width of the window, add a sticky parameter to make it do that.
+Do the same for button8.
+Lastly, button5 should fill the height of the space it is in, add a sticky parameter to do that.
+"""
+from tkinter import *
+from tkinter import ttk
+
+root = Tk()
+root.title("Grid Test")
+
+button1 = ttk.Button(root, text="Row 0, Col 0")
+button1.grid(row=0, column=0)
+
+button2 = ttk.Button(root, text="Row 0, Col 1")
+button2.grid(row=0, column=1)
+
+button3 = ttk.Button(root, text="Row 0, Col 2")
+button3.grid(row=0, column=2)
+
+button4 = ttk.Button(root, text="Row 1, Col 0")
+button4.grid(row=1, column=0, columnspan=3, sticky="WE")
+
+button5 = ttk.Button(root, text="Row 2, Col 0")
+button5.grid(row=2, column=0, rowspan=2, sticky="NS")
+
+button6 = ttk.Button(root, text="Row 2, Col 1")
+button6.grid(row=2, column=1)
+
+button7 = ttk.Button(root, text="Row 2, Col 2")
+button7.grid(row=2, column=2)
+
+button8 = ttk.Button(root, text="Row 3, Col 1")
+button8.grid(row=3, column=1, columnspan=2, sticky="WE")
+
+root.mainloop()
+
+"""
+Laying out our goal tracking GUI with .grid()
+Ok, let's use .grid() to improve the layout of our app GUI!
+It would be nice if we could sit the Amount:  label and its entry box next to each other on one line, as later we will need to add some other widgets to choose an account and so on.
+In that row, we will have 2 columns, so we will need to set the columnspan of all of the other widgets to 2.
+Here are the positions each widget should be in:
+message_label: row 0, column 0
+image_label: row 1, column 0
+details_label: row 2, column 0
+amount_label: row 3, column 0
+amount_entry: row 3, column 1
+submit_button: row 4, column 0
+Position each widget in the positions listed above using .grid() instead of .pack().
+Set the columnspan for all widgets except amount_label and amount_entry to 2.
+"""
+from tkinter import *
+from tkinter import ttk
+
+# Create a variable to store the account balance
+savings_balance = 0
+
+# Create a function that will update the balance.
+def update_balance():
+    global savings_balance
+    deposit_amount = amount.get()
+    savings_balance += deposit_amount
+    total_balance = savings_balance
+    account_details.set("Savings: ${:.2f}\nTotal Balance: ${:.2f}".format(savings_balance, total_balance))
+    amount.set("")
+
+root = Tk()
+root.title("Goal Tracker")
+
+# Create and set the message text variable
+message_text = StringVar()
+message_text.set("Welcome! You can deposit or withdraw money and see your progress towards your goals.")
+
+# Create and pack the message label
+message_label = ttk.Label(root, textvariable=message_text, wraplength=250)
+message_label.grid(row=0, column=0, columnspan=2)
+
+# Create the PhotoImage and label to hold it
+neutral_image = PhotoImage(file="/images/python/neutral.png")
+image_label = ttk.Label(root, image=neutral_image)
+image_label.grid(row=1, column=0, columnspan=2)
+
+# Create and set the account details variable
+account_details = StringVar()
+account_details.set("Savings: $0 \nTotal balance: $0")
+
+# Create the details label and pack it into the GUI
+details_label = ttk.Label(root, textvariable=account_details)
+details_label.grid(row=2, column=0, columnspan=2)
+
+# Create a label for the amount field and pack it into the GUI
+amount_label = ttk.Label(root, text="Amount:")
+amount_label.grid(row=3, column=0)
+
+# Create a variable to store the amount
+amount = DoubleVar()
+amount.set("")
+
+# Create an entry to type in amount
+amount_entry = ttk.Entry(root, textvariable=amount)
+amount_entry.grid(row=3, column=1)
+
+# Create a submit button
+submit_button = ttk.Button(root, text="Submit", command=update_balance)
+submit_button.grid(row=4, column=0, columnspan=2)
+
+# Run the mainloop
+root.mainloop()
+
+"""
+Adding padding to space out widgets
+We can add padding to widgets in order to space them out and make them look less cluttered. We use padx (pads the sides) and pady (pads the top and bottom) which are both in pixels:
+my_label = Label(root, text="Hello")
+my_label.grid(row=0, column=0, padx=10, pady=10)
+Let's improve our goal tracking app GUI with these.
+Add 10px of padding on all 4 sides of the message_label.
+Add 10px of padding on all 4 sides of the image_label.
+Add 10px of padding on all 4 sides of the details_label.
+Add 3px padding to the top and bottom of the amount_label and 10px to the sides.
+Add 3px padding to the top and bottom of the amount_entry and 10px to the sides.
+Add 10px padding to all sides of the submit_button.
+"""
+
+from tkinter import *
+from tkinter import ttk
+
+# Create a variable to store the account balance
+savings_balance = 0
+
+# Create a function that will update the balance.
+def update_balance():
+    global savings_balance
+    deposit_amount = amount.get()
+    savings_balance += deposit_amount
+    total_balance = savings_balance
+    account_details.set("Savings: ${:.2f}\nTotal Balance: ${:.2f}".format(savings_balance, total_balance))
+    amount.set("")
+
+root = Tk()
+root.title("Goal Tracker")
+
+# Create and set the message text variable
+message_text = StringVar()
+message_text.set("Welcome! You can deposit or withdraw money and see your progress towards your goals.")
+
+# Create and pack the message label
+message_label = ttk.Label(root, textvariable=message_text, wraplength=250)
+message_label.grid(row=0, column=0, columnspan=2, padx=10, pady=10)
+
+# Create the PhotoImage and label to hold it
+neutral_image = PhotoImage(file="/images/python/neutral.png")
+image_label = ttk.Label(root, image=neutral_image)
+image_label.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
+
+# Create and set the account details variable
+account_details = StringVar()
+account_details.set("Savings: $0 \nTotal balance: $0")
+
+# Create the details label and pack it into the GUI
+details_label = ttk.Label(root, textvariable=account_details)
+details_label.grid(row=2, column=0, columnspan=2, padx=10, pady=10)
+
+# Create a label for the amount field and pack it into the GUI
+amount_label = ttk.Label(root, text="Amount:")
+amount_label.grid(row=3, column=0, padx=10, pady=3)
+
+# Create a variable to store the amount
+amount = DoubleVar()
+amount.set("")
+
+# Create an entry to type in amount
+amount_entry = ttk.Entry(root, textvariable=amount)
+amount_entry.grid(row=3, column=1, padx=10, pady=3)
+
+# Create a submit button
+submit_button = ttk.Button(root, text="Submit", command=update_balance)
+submit_button.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
+
+# Run the mainloop
+root.mainloop()
+
+"""
+
+"""
